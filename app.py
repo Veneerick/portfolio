@@ -10,8 +10,8 @@ from PIL import Image, ImageDraw, ImageFont
 # ----------------------------------------------------------------------------
 # TODO: replace every placeholder below with your own details and writing.
 # ----------------------------------------------------------------------------
-NAME = "Your Name"                    # TODO
-SECTION = "CSIT 349 · Section X"      # TODO: your section
+NAME = "Veneerick Joel M. Ondon II"                    # TODO
+SECTION = "CSIT 349 · F1"      # TODO: your section
 PROGRAM = "BS Computer Science"       # TODO
 YEAR = "3rd Year"                     # TODO
 
