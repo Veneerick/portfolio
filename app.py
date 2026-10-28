@@ -224,7 +224,7 @@ PROJECTS = [
         "tools": ["3D modeling", "Blender"],  
         "outcome": "A whole lot of 3d modelling made me learn a lot of ",
         "links": [("Play on itch.io", "https://b1nggb0ngg.itch.io/mangga-dyip-simulator")],
-        "image": "projects/mangga-dyip-simulator.png",
+        "image": "projects/mangga-dyip-simulator.jpg",
     },
 ]
 
@@ -270,11 +270,7 @@ col_photo, col_bio = st.columns([1, 2], gap="large")
 
 with col_photo:
     st.markdown('<div class="hero-photo">', unsafe_allow_html=True)
-    if os.path.exists("photo.jpg"):
-        st.image("photo.jpg", caption=NAME)
-    else:
-        st.image(placeholder("PHOTO PLACEHOLDER", (400, 400)), caption="Stand-in photo (add photo.jpg)")
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.image("photo.jpg", caption=NAME)
 
 with col_bio:
     st.write("I am Veneerick Ondon, and I am a 3rd year student currently studying CS in Cebu Institute of Technology University!")
