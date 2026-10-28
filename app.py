@@ -214,7 +214,7 @@ def chips(items):
 
 #data
 SKILLS = [
-    "C#", "Java", "C", "C++", "Python", "UI Design", "QA Testing", "3D Modeling", "Game Development",
+    "C#", "Java", "C", "C++", "Python", "UI Design", "QA Testing", "3D Modeling(Blender)", "Game Development", "Graphics Design", "Photoshop", "Premier Pro", "After Effects",
 ]
 
 INTERESTS = ["Coding", "Game Development", "3D Art", "Writing", "Gaming"]  
@@ -301,7 +301,7 @@ with col_photo:
     st.image("photo.jpg", caption=NAME)
 
 with col_bio:
-    st.write("I am Veneerick Ondon, and I am a 3rd year student currently studying CS in Cebu Institute of Technology University!")
+    st.write("I am Veneerick Ondon, and I am a 3rd year student currently studying CS in Cebu Institute of Technology University! Having lived in Calbayog City, Samar for most of my life, I grew up without much context for anything outside of the vicinity. But upon entering Highschool I entered a special program in the arts. There I learned about using software like Photoshop and Premier as well as learning the basics of Radio Broadcasting and the principles of design. Upon entering Senior Highschool I went to the ABM strand and mostly learned about accountancy, to which I became incredibly bored. Fast forward to today, and I have chosen CS in college, a decision that came out of nowhere and now I am currently surviving! Wish me luck!")
     all_tools = {t for p in PROJECTS for t in p["tools"]}
     m1, m2, m3 = st.columns(3)
     m1.metric("Projects", len(PROJECTS))
@@ -313,7 +313,7 @@ st.header("Autobiography", anchor="autobiography")
 r1a, r1b = st.columns(2, gap="large")
 with r1a.container(key="card_background"):
     st.subheader("Background")
-    st.write("I grew up in Calbayog City, Samar")
+    st.write("I grew up in Calbayog City, Samar. I studied Media Arts in Highschool and have now come to study Computer Science to further broaden my horizons!")
 with r1b.container(key="card_education"):
     st.subheader("Education")
     st.markdown("- Christ the King College (Elementary) \n- Calbayog City National Highschool\n- Cebu Institute of Technology - University")
@@ -329,12 +329,12 @@ with r2b.container(key="card_milestones"):
     shown = MILESTONES[MILESTONES["Year"].between(start, end)]
     st.table(shown.set_index("Year"))
 
-bio_text = f"{NAME}\n{PROGRAM}, {YEAR}\n\nTODO: paste your autobiography here.\n"
+bio_text = f"{NAME}\n{PROGRAM}, {YEAR}\n\n I am Veneerick Ondon, and I am a 3rd year student currently studying CS in Cebu Institute of Technology University! \n\nHaving lived in Calbayog City, Samar for most of my life, I grew up without much context for anything outside of the vicinity. But upon entering Highschool I entered a special program in the arts. There I learned about using software like Photoshop and Premier as well as learning the basics of Radio Broadcasting and the principles of design. Upon entering Senior Highschool I went to the ABM strand and mostly learned about accountancy, to which I became incredibly bored. Fast forward to today, and I have chosen CS in college, a decision that came out of nowhere and now I am currently surviving! Wish me luck!\n"
 st.download_button("Download my bio in text form!", bio_text, file_name="autobiography.txt")
 
 #skills
 st.header("Skills", anchor="skills")
-st.write("TODO: a sentence or two on how you picked these skills up.")
+st.write("Over the years I have delved into a lot of disciplines, these are the ones I am most confident in!")
 chips(SKILLS)
 
 #projects
