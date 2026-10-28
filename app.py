@@ -157,6 +157,34 @@ h1 { animation: pop .7s cubic-bezier(.2, .9, .3, 1.3) both; }
 """
 st.markdown("<style>" + SMOOTH_CSS + "</style>", unsafe_allow_html=True)
 
+FONT_CSS = """
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
+
+/* body text: Comic Neue everywhere (the old rule missed Streamlit's own text classes) */
+.stApp, .stApp p, .stApp li, .stApp label, .stApp input, .stApp textarea, .stApp td, .stApp a,
+.stApp [data-testid="stMetricLabel"], .stApp [data-testid="stMetricLabel"] *,
+.stApp [data-testid="stSlider"] *, .stApp [data-testid="stAlert"] *, .stApp textarea::placeholder, .stApp input::placeholder {
+  font-family: 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif !important; }
+.stApp p, .stApp li, .stApp td { font-size: 1.15rem; }
+.stApp label, .stApp label * { font-weight: 700; }
+
+/* handwritten marker for captions and tags */
+.stApp [data-testid="stCaptionContainer"], .stApp [data-testid="stCaptionContainer"] * {
+  font-family: 'Permanent Marker', 'Comic Sans MS', cursive !important; font-size: 1rem; letter-spacing: .5px; color: #111111; }
+
+/* display font: headings, buttons, stickers, nav, numbers, table headers */
+.stApp h1, .stApp h2, .stApp h3, .stApp h1 *, .stApp h2 *, .stApp h3 *,
+.stApp button, .stApp button *, .stApp .stLinkButton a, .stApp .stLinkButton a *,
+.stApp .chip, .stApp .nav a, .stApp [data-testid="stMetricValue"], .stApp [data-testid="stMetricValue"] *, .stApp th {
+  font-family: 'Bangers', 'Comic Sans MS', cursive !important; letter-spacing: 1.5px; font-weight: 400; }
+
+/* tables (st.table is HTML, so it can match the comic style) */
+[data-testid="stTable"] table { border-collapse: separate; border-spacing: 0; border: 3px solid #111111; border-radius: 12px; overflow: hidden; background: #fff; }
+[data-testid="stTable"] th { background: #FFD60A; font-size: 1.3rem; border-bottom: 3px solid #111111; }
+[data-testid="stTable"] td { border-bottom: 2px dotted #111111; }
+"""
+st.markdown("<style>" + FONT_CSS + "</style>", unsafe_allow_html=True)
+
 #helpers
 def placeholder(label: str, size=(600, 450)) -> Image.Image:
     """A clearly labeled stand-in image with a halftone gradient."""
@@ -299,10 +327,10 @@ with r2b.container(key="card_milestones"):
     this_year = date.today().year
     start, end = st.slider("Timeline range", 2010, this_year, (2015, this_year))
     shown = MILESTONES[MILESTONES["Year"].between(start, end)]
-    st.dataframe(shown, hide_index=True)
+    st.table(shown.set_index("Year"))
 
 bio_text = f"{NAME}\n{PROGRAM}, {YEAR}\n\nTODO: paste your autobiography here.\n"
-st.download_button("⬇️ Download my bio (.txt)", bio_text, file_name="autobiography.txt")
+st.download_button("Download my bio in text form!", bio_text, file_name="autobiography.txt")
 
 #skills
 st.header("Skills", anchor="skills")
