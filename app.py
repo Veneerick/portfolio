@@ -7,24 +7,21 @@ import pandas as pd
 import streamlit as st
 from PIL import Image, ImageDraw, ImageFont
 
-# ----------------------------------------------------------------------------
-# TODO: replace every placeholder below with your own details and writing.
-# ----------------------------------------------------------------------------
-NAME = "Veneerick Joel M. Ondon II"                    # TODO
-SECTION = "CSIT 349 · F1"      # TODO: your section
-PROGRAM = "BS Computer Science"       # TODO
-YEAR = "3rd Year"                     # TODO
+NAME = "Veneerick Joel M. Ondon II"           
+SECTION = "CSIT 349 · F1"    
+PROGRAM = "BS Computer Science"     
+YEAR = "3rd Year"            
 
 st.set_page_config(
     page_title=f"{NAME} | Portfolio",
-    page_icon="👋",
+    page_icon=":D",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
 INK, PAPER, YELLOW, RED, BLUE = "#111111", "#FFF8E7", "#FFD60A", "#E63946", "#2EC4F1"
 
-# ------------------------------- styling ------------------------------------
+#styling
 COMIC_CSS = Template("""
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
 
@@ -115,8 +112,52 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+SMOOTH_CSS = """
+html { scroll-behavior: smooth; }
 
-# ------------------------------- helpers ------------------------------------
+/* softer, rounder shapes + smooth hover motion */
+h2 { border-radius: 14px; }
+[class*="st-key-card"], [data-testid="stMetric"], [data-testid="stForm"] {
+  border-radius: 18px; transition: transform .25s ease, box-shadow .25s ease; }
+[class*="st-key-card"]:hover, [data-testid="stMetric"]:hover {
+  transform: translate(-3px, -3px); box-shadow: 9px 9px 0 #111111; }
+[data-testid="stImage"] img { border-radius: 12px; transition: transform .3s ease, box-shadow .3s ease; }
+.bubble { border-radius: 22px; }
+.chip { transition: transform .2s ease, box-shadow .2s ease; }
+.chip:hover { transform: rotate(0deg) translateY(-4px) scale(1.06) !important; box-shadow: 6px 8px 0 #111111; }
+.stButton > button, .stDownloadButton > button, .stFormSubmitButton > button, .stLinkButton > a {
+  border-radius: 999px; transition: transform .15s ease, box-shadow .15s ease, background .2s ease, color .2s ease; }
+.stTextInput input, .stTextArea textarea { border-radius: 10px; transition: box-shadow .2s ease; }
+.stTextInput input:focus, .stTextArea textarea:focus { box-shadow: 0 0 0 3px #2EC4F1; }
+
+/* entrance animations */
+@keyframes pop { 0% { opacity: 0; scale: .7; } 70% { opacity: 1; scale: 1.06; } 100% { opacity: 1; scale: 1; } }
+@keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+@keyframes slideIn { from { opacity: 0; translate: 0 20px; } to { opacity: 1; translate: 0 0; } }
+h1 { animation: pop .7s cubic-bezier(.2, .9, .3, 1.3) both; }
+.hero-photo [data-testid="stImage"] img { animation: floaty 5s ease-in-out infinite; }
+[class*="st-key-card_project"] { animation: slideIn .45s ease both; }
+
+/* scroll-triggered reveals (Chrome, Edge, Safari; other browsers just show everything) */
+@supports (animation-timeline: view()) {
+  @keyframes revealUp    { from { opacity: 0; translate: 0 50px; }  to { opacity: 1; translate: 0 0; } }
+  @keyframes revealLeft  { from { opacity: 0; translate: -70px 0; } to { opacity: 1; translate: 0 0; } }
+  @keyframes revealRight { from { opacity: 0; translate: 70px 0; }  to { opacity: 1; translate: 0 0; } }
+  h2, [data-testid="stMetric"], [data-testid="stForm"], .stDownloadButton {
+    animation: revealUp linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+  .st-key-card_background, .st-key-card_interests {
+    animation: revealLeft linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+  .st-key-card_education, .st-key-card_milestones {
+    animation: revealRight linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+"""
+st.markdown("<style>" + SMOOTH_CSS + "</style>", unsafe_allow_html=True)
+
+#helpers
 def placeholder(label: str, size=(600, 450)) -> Image.Image:
     """A clearly labeled stand-in image with a halftone gradient."""
     w, h = size
@@ -143,10 +184,12 @@ def chips(items):
     st.markdown("".join(f'<span class="chip">{i}</span>' for i in items), unsafe_allow_html=True)
 
 
-# ------------------------------- data ---------------------------------------
-SKILLS = [  # TODO: edit to match what you can really do
-    "C#", "Blazor", "Java", "JavaFX", "UI Design", "QA Testing", "3D Modeling", "Environment Art",
+#data
+SKILLS = [
+    "C#", "Java", "C", "C++", "Python", "UI Design", "QA Testing", "3D Modeling", "Game Development",
 ]
+
+INTERESTS = ["Coding", "Game Development", "3D Art", "Writing", "Gaming"]  
 
 PROJECTS = [
     {
@@ -159,40 +202,40 @@ PROJECTS = [
         ),
         "role": "UI and QA",
         "tools": ["Java", "JavaFX", "MySQL"],
-        "outcome": "TODO: what you designed, what you tested, what you learned.",
+        "outcome": "The project that made me learn how to properly work with others",
         "links": [("GitHub", "https://github.com/Kianbel/Tn-spector")],
         "image": "projects/tn-spector.png",
     },
     {
         "title": "Cebu Survival Guide",
         "tag": "Solo project · Sole developer",
-        "summary": "TODO: one or two sentences on what the guide is and who it is for.",
+        "summary": "This is an ongoing project that I am making in order to help people adapt to life in cebu",
         "role": "Sole developer",
         "tools": ["C#", "Blazor"],
-        "outcome": "TODO: what you built end to end and how it turned out.",
+        "outcome": "Still to be determined, but for now it is a fantastic learning experience",
         "links": [("GitHub", "https://github.com/Veneerick/Cebu-Survival-Guide")],
         "image": "projects/cebu-survival-guide.png",
     },
     {
         "title": "Mangga Dyip Simulator",
         "tag": "Game project · 3D assets and environments",
-        "summary": "TODO: one or two sentences on the game and its setting.",
+        "summary": "A game jam submission for the filipino horror jam",
         "role": "3D assets and environments",
-        "tools": ["3D modeling", "Environment art"],  # TODO: add the software you used
-        "outcome": "TODO: which assets and environments you made and what you learned.",
+        "tools": ["3D modeling", "Blender"],  
+        "outcome": "A whole lot of 3d modelling made me learn a lot of ",
         "links": [("Play on itch.io", "https://b1nggb0ngg.itch.io/mangga-dyip-simulator")],
         "image": "projects/mangga-dyip-simulator.png",
     },
 ]
 
-MILESTONES = pd.DataFrame(  # TODO: your own timeline
+MILESTONES = pd.DataFrame(
     {
-        "Year": [2015, 2020, 2023, 2025],
+        "Year": [2024, 2025, 2025, 2026],
         "Milestone": [
-            "TODO: an early milestone",
-            "TODO: a turning point",
-            "TODO: started college",
-            "TODO: a recent achievement",
+            "Started College",
+            "Learned C",
+            "Learned C++ and Java",
+            "Made a Game",
         ],
     }
 )
@@ -201,7 +244,7 @@ CERT_FILES = sorted(
     f for ext in ("png", "jpg", "jpeg", "webp") for f in glob.glob(f"certs/*.{ext}")
 )
 
-# ---------------------------- session state ---------------------------------
+#session state
 st.session_state.setdefault("proj_idx", 0)
 st.session_state.setdefault("messages", [])
 
@@ -210,8 +253,8 @@ def step(delta: int):
     st.session_state.proj_idx = (st.session_state.proj_idx + delta) % len(PROJECTS)
 
 
-# ------------------------------- header -------------------------------------
-st.title(f"👋 Hi, I'm {NAME}")
+#header
+st.title(f"Wazzup, I'm {NAME}")
 st.caption(f"{PROGRAM} · {YEAR} · {SECTION}")
 st.markdown(
     '<div class="nav"><a href="#about">About</a><a href="#autobiography">Autobiography</a>'
@@ -221,7 +264,7 @@ st.markdown(
 )
 st.divider()
 
-# ------------------------------- about --------------------------------------
+#about
 st.header("About Me", anchor="about")
 col_photo, col_bio = st.columns([1, 2], gap="large")
 
@@ -234,33 +277,27 @@ with col_photo:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col_bio:
-    st.write("TODO: write a short biography in your own words: who you are, what you study, and what you want to do.")
+    st.write("I am Veneerick Ondon, and I am a 3rd year student currently studying CS in Cebu Institute of Technology University!")
     all_tools = {t for p in PROJECTS for t in p["tools"]}
     m1, m2, m3 = st.columns(3)
     m1.metric("Projects", len(PROJECTS))
     m2.metric("Certifications", len(CERT_FILES))
     m3.metric("Tools used", len(all_tools))
 
-# ------------------------------- autobiography ------------------------------
+#autobiography
 st.header("Autobiography", anchor="autobiography")
 r1a, r1b = st.columns(2, gap="large")
 with r1a.container(key="card_background"):
     st.subheader("Background")
-    st.write("TODO: where you grew up, family, what shaped you.")
+    st.write("I grew up in Calbayog City, Samar")
 with r1b.container(key="card_education"):
     st.subheader("Education")
-    st.markdown("- TODO: Elementary\n- TODO: High school\n- TODO: College / program")
+    st.markdown("- Christ the King College (Elementary) \n- Calbayog City National Highschool\n- Cebu Institute of Technology - University")
 
 r2a, r2b = st.columns(2, gap="large")
 with r2a.container(key="card_interests"):
     st.subheader("Interests")
-    interests = st.pills(
-        "Tap what you enjoy",  # TODO: edit options to match you
-        ["Coding", "Game dev", "3D art", "Music", "Gaming", "Reading", "Travel"],
-        selection_mode="multi",
-        default=["Coding"],
-    )
-    st.write("I enjoy: " + (", ".join(interests) if interests else "nothing selected yet"))
+    chips(INTERESTS)
 with r2b.container(key="card_milestones"):
     st.subheader("Milestones")
     this_year = date.today().year
@@ -271,12 +308,12 @@ with r2b.container(key="card_milestones"):
 bio_text = f"{NAME}\n{PROGRAM}, {YEAR}\n\nTODO: paste your autobiography here.\n"
 st.download_button("⬇️ Download my bio (.txt)", bio_text, file_name="autobiography.txt")
 
-# ------------------------------- skills -------------------------------------
+#skills
 st.header("Skills", anchor="skills")
 st.write("TODO: a sentence or two on how you picked these skills up.")
 chips(SKILLS)
 
-# ------------------------------- projects (carousel) ------------------------
+#projects
 st.header("Projects", anchor="projects")
 idx = st.session_state.proj_idx
 proj = PROJECTS[idx]
@@ -285,7 +322,7 @@ prev_col, card_col, next_col = st.columns([1, 12, 1], vertical_alignment="center
 prev_col.button("◀", key="prev", on_click=step, args=(-1,), help="Previous project")
 next_col.button("▶", key="next", on_click=step, args=(1,), help="Next project")
 
-with card_col.container(key="card_project"):
+with card_col.container(key=f"card_project_{idx}"):
     text_col, img_col = st.columns([3, 2], gap="large")
     with text_col:
         st.caption(f"{proj['tag']} · {idx + 1} of {len(PROJECTS)}")
@@ -307,7 +344,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ------------------------------- certifications -----------------------------
+# crertifications
 st.header("Certifications", anchor="certifications")
 if CERT_FILES:
     cols = st.columns(3, gap="large")
@@ -316,7 +353,7 @@ if CERT_FILES:
 else:
     st.info("Add your certificate images (png, jpg, jpeg or webp) to the certs/ folder and they will appear here.")
 
-# ------------------------------- contact ------------------------------------
+# contact
 st.header("Contact & Feedback", anchor="contact")
 with st.form("contact_form", clear_on_submit=True):
     f1, f2 = st.columns(2)
